@@ -26,9 +26,8 @@ for file in file_list:
     features = [torch.tensor(t).cpu().detach().numpy() for t in features]
     features = np.array(features, dtype=np.float32)
     num_frame = features.shape[0] * 16
-    print(num_frame)
 
-    split_file = file.split('/')[-1].split('_')[0]
+    split_file = file.split('\\')[-1].split('_')[0]
     mat_prefix = '_x264.mat'
     mat_file = split_file + mat_prefix
  
@@ -67,8 +66,6 @@ for file in file_list:
                     for i in range(start_idx, end_idx):
                         gt.append(1.0)
                         count += 1
-
-
             else:
                 start_idx_2 = annots_idx[0][0][1][0]
                 end_idx_2 = annots_idx[0][0][1][1]
@@ -98,7 +95,6 @@ for file in file_list:
                     print(count)
                     print(end_idx_2 +1)
 
-
     if count != num_frame:
         print(file)
         print('Num of frames is not correct!!')
@@ -106,7 +102,7 @@ for file in file_list:
 
 
 
-output_file = '.list/gt-ucf.npy'
+output_file = './list/gt-ucf.npy'
 gt = np.array(gt, dtype=float)
 np.save(output_file, gt)
 print(len(gt))
